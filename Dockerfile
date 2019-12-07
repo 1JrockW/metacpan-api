@@ -1,6 +1,7 @@
 FROM metacpan/metacpan-base:latest
 
 ENV PERL_MM_USE_DEFAULT=1
+ARG CPM_ARGS=--without-test
 
 COPY . /metacpan-api/
 WORKDIR /metacpan-api
@@ -14,7 +15,7 @@ RUN mkdir /CPAN \
     && apt-get install -y --no-install-recommends rsync=3.1.3-6 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && cpm install --global \
+    && cpm install --global --without-test \
     && rm -fr /root/.cpanm /root/.perl-cpm /var/cache/apt/lists/* /tmp/*
 
 VOLUME /CPAN
