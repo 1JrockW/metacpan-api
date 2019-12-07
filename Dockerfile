@@ -1,6 +1,8 @@
 FROM metacpan/metacpan-base:latest
 
-COPY cpanfile cpanfile.snapshot /metacpan-api/
+ENV PERL_MM_USE_DEFAULT=1
+
+COPY . /metacpan-api/
 WORKDIR /metacpan-api
 
 # CPM installations of dependencies does not install or run tests. This is
