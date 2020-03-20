@@ -19,6 +19,7 @@ jobs:
             - name: up
               run: >
                   pushd $GITHUB_WORKSPACE/metacpan-docker &&
+                  ./bin/metacpan-docker init &&
                   docker-compose up -d api &&
                   popd
             - name: run Perl tests
