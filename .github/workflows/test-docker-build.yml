@@ -9,10 +9,17 @@ jobs:
         runs-on: ubuntu-latest
         name: build and test
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v2
+            - uses: actions/checkout@v2
+              with:
+                  path: metacpan-docker
+                  repository: metacpan/metacpan-docker
             - name: docker build
               run: docker build . --build-arg CPM_ARGS='--with-test' -t api
             - name: up
-              run: docker-compose up -d api
+              run: >
+                  pushd $GITHUB_WORKSPACE/metacpan-docker &&
+                  docker-compose up -d api &&
+                  popd
             - name: run Perl tests
               run: docker-compose exec api prove -lvr t
