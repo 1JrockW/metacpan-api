@@ -12,8 +12,7 @@ jobs:
             - uses: actions/checkout@v1
             - name: docker build
               run: docker build . --build-arg CPM_ARGS='--with-test' -t api
+            - name: up
+              run: docker-compose up -d api
             - name: run Perl tests
-              run: docker run -i api carton exec prove -lr t
-              env:
-                  ES_TEST: "localhost:9200"
-                  METACPAN_SERVER_CONFIG_LOCAL_SUFFIX: testing
+              run: docker-compose exec api prove -lvr t
