@@ -23,4 +23,6 @@ jobs:
                   docker-compose up -d api &&
                   popd
             - name: run Perl tests
-              run: docker-compose exec api prove -lvr t
+              run: >
+                  pushd $GITHUB_WORKSPACE/metacpan-docker &&
+                  docker-compose exec api prove -lvr t
